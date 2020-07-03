@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.dao.SignInfoDao">
+	
+  <!-- 查询 -->
+  <select id="searchByCondition" parameterType="PageCondition" resultType="SignInfo">
+    select t.* FROM t_sign_info t limit #{start},#{size}
+  </select> 
+  
+  <select id="getTotals" parameterType="PageCondition" resultType="java.lang.Long">
+    select count(*) FROM t_sign_info
+  </select> 
+
+<!-- 增加 -->
+ <insert id="insert" parameterType="SignInfo">
+    insert into t_sign_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id &gt;0">
+        id,
+      </if>
+      <if test="name != null and name !=''">
+        name,
+      </if>
+      <if test="startTime != null and startTime !=''">
+        startTime,
+      </if>
+      <if test="endTime != null and endTime !=''">
+        endTime,
+      </if>
+      <if test="createTime != null and createTime !=''">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+       <if test="id &gt;0">
+        #{id},
+      </if>
+      <if test="name != null and name !=''">
+        #{name},
+      </if>
+      <if test="startTime != null and startTime !=''">
+        #{startTime},
+      </if>
+      <if test="endTime != null and endTime !=''">
+        #{endTime},
+      </if>
+      <if test="createTime != null and createTime !=''">
+        #{createTime},
+      </if>
+     </trim>
+  </insert>
+  
+   <!-- 查询 -->
+  <select id="fetchSignInfo" resultType="SignInfo">
+    SELECT * FROM t_sign_info WHERE startTime &lt;  NOW() AND endTime &gt; NOW() ORDER BY createTime DESC limit 1
+  </select> 
+
+</mapper>

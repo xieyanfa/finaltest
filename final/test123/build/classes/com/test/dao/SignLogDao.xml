@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.dao.SignLogDao">
+
+	<sql id="wheresql">
+		<if test="keyWord !=null and keyWord!=''">
+	  		and (t2.name like '%${keyWord}%' or t1.name like '%${keyWord}%')
+  		</if>
+  		<if test="time !=null and time != ''">
+	  		and t.signtime  &gt; str_to_date(CONCAT(#{time},' 00:00:00'),'%Y-%m-%d %H:%i:%s') and t.signtime  &lt; str_to_date( CONCAT(#{time},' 23:59:59'),'%Y-%m-%d %H:%i:%s')
+  		</if>
+  		<if test="startTime !=null and startTime != ''">
+	  		and t.signtime &gt; str_to_date( CONCAT(#{startTime},' 00:00:00'),'%Y-%m-%d %H:%i:%s')
+  		</if>
+  		<if test="endTime !=null and endTime != ''">
+	  		and t.signtime &lt;= str_to_date( CONCAT(#{endTime},' 23:59:59'),'%Y-%m-%d %H:%i:%s')
+  		</if>
+  		
+  	</sql>
+  <!-- 查询 -->
+  <select id="searchByCondition" parameterType="PageCondition" resultType="com.test.vo.SignLogVo">
+    SELECT t1.name as sname,t2.name as uname,COUNT(t.logId) AS scount FROM t_sign_log t 
+    LEFT JOIN t_sign_info t1 ON t.signId = t1.id 
+    LEFT JOIN t_user t2 ON t.userId = t2.userId
+    where 1=1
+    <include refid="wheresql"></include>
+     GROUP BY t.userId,t.signId
+     ORDER BY scount DESC
+    limit #{start},#{size}
+  </select> 
+  
+  <select id="getTotals" parameterType="PageCondition" resultType="java.lang.Long">
+    select count(*) FROM t_sign_log t
+    LEFT JOIN t_sign_info t1 ON t.signId = t1.id 
+    LEFT JOIN t_user t2 ON t.userId = t2.userId
+     where 1=1
+    <include refid="wheresql"></include>
+  </select> 
+
+<!-- 增加 -->
+ <insert id="insert" parameterType="SignLog">
+    insert into t_sign_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId &gt;0">
+        logId,
+      </if>
+      <if test="userId &gt;0">
+        userId,
+      </if>
+      <if test="signId &gt;0">
+        signId,
+      </if>
+      <if test="time != null and time !=''">
+        signtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId &gt;0">
+        #{logId},
+      </if>
+      <if test="userId &gt;0">
+        #{userId},
+      </if>
+      <if test="signId &gt;0">
+        #{signId},
+      </if>
+      <if test="time != null and time !=''">
+        #{time},
+      </if>
+     </trim>
+  </insert>
+  
+   <!-- 查询 -->
+  <select id="fetchByUserIdAndsignId" resultType="SignLog">
+    SELECT * FROM t_sign_log WHERE userId=#{userId} AND signId=#{signId} limit 1
+  </select> 
+
+</mapper>

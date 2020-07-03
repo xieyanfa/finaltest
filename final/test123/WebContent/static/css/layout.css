@@ -1,0 +1,96 @@
+/**
+ * 后台管理布局样式
+ */
+ .north{height:60px;background:#7CBCD6;padding:10px;overflow: hidden;}
+ .north .logo_txt{font-size:26px;color:#fff;}
+ .north .sider{width:25%;float:left;}
+ .north .right{width:50%;float:right;text-align: right;padding-right:30px;color:#fff;font-weight: 700;}
+  .north .right a{color:#fff;font-size:14px;font-weight: 700;text-decoration: none;}
+ .west{width:220px;padding:10px;}
+ .east{width:100px;padding:10px;}
+ .south{height:25px;background:#7CBCD6;padding:10px;}
+ .south {font-size: 13px;color:#fff;font-weight: 700;}
+ .south .rightBox{width:42%;float:right;padding-right:20px;text-align: right;}
+ .regcent{}
+ .easyui-menu{width:120px;}
+ 
+ /** modal window styles **/
+.popupBox {
+	width: 450px;
+	min-height: 250px;
+	max-height:500px;
+	/* padding: 8px 20px; */
+	line-height: 40px;
+	display: none;
+	font-size: 12px;
+	background: #f3f6fa;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.popupBox .head {
+	height: 35px;
+	background-color: #001529;
+	color: #fff;
+}
+
+.popupBox .head .left {
+	width: 150px;
+	float: left;
+	text-align: left;
+}
+
+.popupBox .head .left .wtitle {
+	font-size: 12px;
+	font-weight: 600;
+	padding-left: 10px;
+}
+
+.popupBox .head .right {
+	width: 50px;
+	float: right;
+	text-align: right;
+}
+
+.popupBox .head .closeBtn {
+	font-size: 12px;
+}
+
+.popupBox .wcontent {
+	padding: 8px 10px;
+	clear: both;
+	min-height:120px;
+	height: 70%;
+}
+.popupBox .wcontent th{
+	font-size:13px;
+	color:#F7A54B;
+}
+.popupBox .wmsg {
+	clear: both;
+	height: 35px;
+	color: red;
+}
+
+.popupBox .wbtn {
+	clear: both;
+	text-align: center;
+	padding-bottom: 10px;
+}
+.popupBox input[type='button']{
+	font-size:13px;font-weight: 600;
+}
+.popupBox .winmsg{height: 30px;text-align: left;padding-left: 15px;}
+
+.formStyle{padding-left: 20px;line-height: 45px;font-size: 13px;}
+.formStyle .lab{width:100%;clear: both;min-height: 45px;}
+.formStyle .lab .ftitle{width:80px;float:left;}
+input[type="password"]{
+	width:200px;
+	height: 35px;
+}
+.tipMsg{color: #D93600;}
